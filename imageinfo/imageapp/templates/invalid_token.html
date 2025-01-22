@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container text-center mt-5">
+    <div class="alert alert-danger shadow-lg p-4 rounded">
+        <h3 class="text-danger">❌ Invalid Token</h3>
+        <p>The reset link is invalid or has expired.</p>
+        <a href="{% url 'password_reset' %}" class="btn">Request a New Reset Link</a>
+    </div>
+</div>
+
+<style>
+    .alert {
+        background-color: #ffe5e5;
+        border: 1px solid #ff5733;
+    }
+    .btn {
+        background-color: #ff5733;
+        color: white;
+        padding: 10px 15px;
+        border-radius: 5px;
+        text-decoration: none;
+        transition: 0.3s;
+    }
+    .btn:hover {
+        background-color: #e64e2d;
+    }
+</style>
+{% endblock %}

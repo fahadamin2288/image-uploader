@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    <style>
+      /* Image Upload Form Styling */
+      .upload-form-container {
+        background: white;
+        border-radius: 15px;
+        padding: 30px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        transition: 0.3s ease-in-out;
+      }
+      .upload-form-container h1 {
+        font-size: 1.8rem;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 1rem;
+        color: #ff5733;
+      }
+      .btn-upload {
+        background-color: #ff5733;
+        border: none;
+        font-size: 1.1rem;
+        padding: 0.75rem 1.5rem;
+        transition: background-color 0.3s ease;
+      }
+      .btn-upload:hover {
+        background-color: rgb(231, 77, 60);
+      }
+
+      /* Image Card Styling */
+      .card {
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+      }
+      .card-img-top {
+        height: 200px;
+        object-fit: cover;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+      }
+      .card-footer {
+        background-color: #f8f9fa;
+        border-bottom-left-radius: 15px;
+        border-bottom-right-radius: 15px;
+        font-size: 0.9rem;
+        color: #6c757d;
+      }
+      .card-header {
+        background-color: #f1f1f1;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+        padding: 1rem;
+        text-align: center;
+        font-weight: bold;
+        color: #ff5733;
+      }
+    </style>
+
+    <div class="container mt-5">
+        <!-- Image Upload Form -->
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="upload-form-container">
+                    <h1>Upload Image</h1>
+                    
+                    {% if messages %}
+                        <div class="alert alert-success text-center">
+                            {% for message in messages %}
+                                <p>{{ message }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    
+                    <form action="" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        
+                        <div class="mb-4">
+                            {{ form }}
+                        </div>
+        
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-upload btn-lg shadow-lg">
+                                <i class="bi bi-upload"></i> Upload Image
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Image Display -->
+        <div class="row mt-5">
+            {% for x in img %}
+                <div class="col-md-4 col-sm-6 mb-4">
+                    <div class="card">
+                        <div class="card-header">
+                            {{ x.title }}
+                        </div>
+                        <a href="{% url 'image_detail' x.id %}">
+                            <img src="{{ x.image.url }}" alt="Image" class="card-img-top">
+                        </a>
+                        <div class="text-center mt-3">
+                          <a href="{% url 'add_to_wishlist' x.id %}" class="btn btn-danger">
+                            ❤️ Add to Wishlist
+                          </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

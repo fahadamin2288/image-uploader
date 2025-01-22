@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}Update Image{% endblock %}
+
+{% block content %}
+    <style>
+      /* Custom styles to make the page compact and centered */
+      .card {
+        max-width: 500px; /* Reduce card width */
+        margin: auto; /* Center the card */
+        padding: 20px;
+      }
+      .card-body {
+        padding: 1rem; /* Reduce padding */
+      }
+      .btn {
+        padding: 0.5rem 1rem; /* Adjust button padding */
+        font-size: 0.9rem; /* Smaller font size */
+      }
+      .card-title {
+        font-size: 1.4rem; /* Slightly smaller title */
+      }
+    </style>
+
+    <div class="container mt-4">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h4 class="card-title text-center">Update {{ img.title }}</h4>
+          <hr>
+
+          <!-- Update Form -->
+          <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="mb-3">
+              <label for="id_title" class="form-label">Image Title</label>
+              {{ form.title|add_class:"form-control" }} <!-- Assuming 'title' is the form field for image title -->
+            </div>
+
+            <div class="mb-3">
+              <label for="id_image" class="form-label">Image path</label>
+              {{ form.image|add_class:"form-control" }}
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="d-flex justify-content-between">
+              <a href="{% url 'image_detail' img.id %}" class="btn btn-secondary">
+                <i class="bi bi-arrow-left"></i> Back
+              </a>
+              <button type="submit" class="btn btn-success">
+                <i class="bi bi-check-lg"></i> Update
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+{% endblock %}
