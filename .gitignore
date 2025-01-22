@@ -13,4 +13,4 @@ media/
 
 .env
 
-imageapp/migrations
+imageapp/migrations/
