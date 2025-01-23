@@ -1,0 +1,8 @@
+# Ignore migrations folder
+imageapp/migrations/
+
+# Ignore pyc files
+*.pyc
+
+# Ignore database file
+db.sqlite3
