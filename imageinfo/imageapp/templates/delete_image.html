@@ -4,42 +4,144 @@
 
 {% block content %}
     <style>
-      .container {
-        max-width: 400px; /* Reduce the container width */
+      /* Custom Styles for Extra-Large Layout */
+      body {
+        background-color: #f0f2f5; /* Softer background */
       }
-      .card-body {
-        padding: 1rem; /* Reduced padding for a smaller layout */
+
+      .card-container {
+        display: flex;
+        flex-wrap: wrap;
+        max-width: 900px; /* Larger container */
+        margin: 50px auto; /* Center the card */
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.25); /* Bigger shadow for more impact */
+        overflow: hidden;
       }
-      h2 {
-        font-size: 1.5rem; /* Smaller heading */
+
+      .image-section {
+        flex: 2;
+        background: #ff5733;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 3rem;
       }
-      .img-fluid {
-        max-height: 200px; /* Limit image size */
-        object-fit: contain; /* Ensure the image is contained within the limit */
+
+      .image-section img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        max-height: 400px; /* Adjusted height */
+        border-radius: 12px;
       }
-      .btn {
-        font-size: 0.9rem; /* Smaller button text */
-        padding: 0.5rem 1rem; /* Smaller button padding */
+
+      .details-section {
+        flex: 3;
+        padding: 3.5rem;
+        text-align: left;
+      }
+
+      .card-title {
+        font-size: 2.2rem;
+        font-weight: bold;
+        color: #333;
+      }
+
+      .text-muted {
+        font-size: 1.1rem;
+        margin-top: 15px;
+      }
+
+      .btn-custom {
+        background-color: #ff5733;
+        color: white;
+        border: none;
+        transition: all 0.3s ease-in-out;
+        font-size: 1.3rem;
+        padding: 0.9rem 1.7rem;
+        border-radius: 8px;
+        width: 150px;
+      }
+
+      .btn-custom:hover {
+        background-color: #e64e2c;
+      }
+
+      .btn-danger {
+        background-color: #dc3545;
+        border: none;
+        transition: all 0.3s ease-in-out;
+        font-size: 1.3rem;
+        padding: 0.9rem 1.7rem;
+        border-radius: 8px;
+        width: 150px;
+      }
+
+      .btn-danger:hover {
+        background-color: #bb2d3b;
+      }
+
+      .action-buttons {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 2.5rem;
+      }
+
+      .icon {
+        margin-right: 10px;
+      }
+
+      @media (max-width: 768px) {
+        .card-container {
+          flex-direction: column;
+          max-width: 100%;
+        }
+
+        .image-section {
+          height: 350px;
+          padding: 1rem;
+        }
+
+        .details-section {
+          padding: 2rem;
+        }
+
+        .btn-custom, .btn-danger {
+          width: 100%; /* Full width buttons on small screens */
+          margin-bottom: 1rem;
+        }
       }
     </style>
-    
+
     <div class="container mt-5">
-      <div class="card shadow-sm">
-        <div class="card-body text-center">
-          <h2 class="text-dark">Are you sure you want to delete this?</h2>
-          <img src="{{ img.image.url }}" alt="Image to delete" class="img-fluid mb-3">
-          <p class="mt-3">This action cannot be undone.</p>
+      <div class="card-container">
+        <!-- Left Side: Image -->
+        <div class="image-section">
+          <img src="{{ img.image.url }}" alt="{{ img.title }}">
+        </div>
+
+        <!-- Right Side: Details -->
+        <div class="details-section">
+          <h4 class="card-title text-dark">Are you sure you want to delete this?</h4>
+          <p class="text-muted"><small>This action cannot be undone.</small></p>
+          <hr>
 
           <!-- Form for confirmation -->
           <form method="POST">
             {% csrf_token %}
-            <button type="submit" class="btn btn-danger">Yes, Delete</button>
+            <button type="submit" class="btn btn-danger">
+              <i class="bi bi-trash icon"></i> Yes, Delete
+            </button>
           </form>
-          
+
           <!-- Cancel button, redirects back to image detail page -->
-          <a href="{% url 'image_detail' img.id %}" class="btn btn-secondary mt-3">Cancel</a>
+          <a href="{% url 'image_detail' img.id %}" class="btn btn-custom mt-3">
+            <i class="bi bi-arrow-left icon"></i> Cancel
+          </a>
         </div>
       </div>
     </div>
-{% endblock %}
 
+{% endblock %}

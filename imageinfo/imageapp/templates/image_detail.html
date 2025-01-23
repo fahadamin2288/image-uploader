@@ -4,49 +4,137 @@
 
 {% block content %}
     <style>
-      /* Custom styles to make the page more compact */
-      .card {
-        max-width: 500px; /* Reduce the card width */
-        margin: auto; /* Center the card */
+      /* Custom Styles for Extra-Large Layout */
+      body {
+        background-color: #f0f2f5; /* Softer background */
       }
-      .card-img-top {
-        height: 250px; /* Adjust image height */
-        object-fit: cover; /* Ensure the image covers the area */
+
+      .card-container {
+        display: flex;
+        flex-wrap: wrap;
+        max-width: 1000px; /* Increased max width for a larger look */
+        margin: 40px auto; /* Center the card with margin */
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.25); /* Bigger shadow for more impact */
+        overflow: hidden;
       }
-      .card-body {
-        padding: 1rem; /* Reduce padding */
+
+      .image-section {
+        flex: 2; /* Image section takes more space */
+        background: #ff5733;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 3rem;
       }
-      .btn {
-        padding: 0.5rem 1rem; /* Adjust button padding */
-        font-size: 0.9rem; /* Smaller font size */
+
+      .image-section img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        max-height: 600px; /* Increased max-height for larger image */
+        border-radius: 12px;
       }
+
+      .details-section {
+        flex: 3; /* Details section takes more space */
+        padding: 3.5rem; /* Increased padding for better space */
+        text-align: left;
+      }
+
       .card-title {
-        font-size: 1.5rem; /* Slightly smaller title */
+        font-size: 2.2rem; /* Larger title */
+        font-weight: bold;
+        color: #333;
       }
-      .card-footer {
-        padding: 0.5rem 1rem; /* Reduce footer padding */
+
+      .text-muted {
+        font-size: 1.1rem;
+        margin-top: 15px;
+      }
+
+      .btn-custom {
+        background-color: #ff5733;
+        color: white;
+        border: none;
+        transition: all 0.3s ease-in-out;
+        font-size: 1.3rem; /* Larger font size for buttons */
+        padding: 0.9rem 1.7rem;
+        border-radius: 8px;
+        width: 150px; /* Fixed width for consistency */
+      }
+
+      .btn-custom:hover {
+        background-color: #e64e2c;
+      }
+
+      .btn-danger {
+        background-color: #dc3545;
+        border: none;
+        transition: all 0.3s ease-in-out;
+        font-size: 1.3rem;
+        padding: 0.9rem 1.7rem;
+        border-radius: 8px;
+        width: 150px;
+      }
+
+      .btn-danger:hover {
+        background-color: #bb2d3b;
+      }
+
+      .action-buttons {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 2.5rem;
+      }
+
+      .icon {
+        margin-right: 10px;
+      }
+
+      @media (max-width: 768px) {
+        .card-container {
+          flex-direction: column;
+          max-width: 100%;
+        }
+
+        .image-section {
+          height: 350px;
+          padding: 1rem;
+        }
+
+        .details-section {
+          padding: 2rem;
+        }
+
+        .btn-custom, .btn-danger {
+          width: 100%; /* Make buttons full width on small screens */
+          margin-bottom: 1rem; /* Space between buttons */
+        }
       }
     </style>
 
-    <div class="container mt-4">
-      <div class="card shadow-sm">
-        <!-- Image Section -->
-        <img src="{{ img.image.url }}" alt="{{ img.title }}" class="card-img-top rounded-top">
+    <div class="container mt-5">
+      <div class="card-container">
+        <!-- Left Side: Image -->
+        <div class="image-section">
+          <img src="{{ img.image.url }}" alt="{{ img.title }}">
+        </div>
 
-        <!-- Image Details -->
-        <div class="card-body">
-          <h4 class="card-title text-center">{{ img.title }}</h4>
-          <p class="text-center text-muted"><small>Uploaded on {{ img.date }}</small></p>
+        <!-- Right Side: Details -->
+        <div class="details-section">
+          <h4 class="card-title">{{ img.title }}</h4>
+          <p class="text-muted"><small>Uploaded on {{ img.date }}</small></p>
           <hr>
 
           <!-- Action Buttons -->
-          <div class="d-flex justify-content-between">
-            <a href="{% url 'update_image' img.id %}" class="btn btn-primary">
-              <i class="bi bi-pencil-square"></i> Update
+          <div class="action-buttons">
+            <a href="{% url 'update_image' img.id %}" class="btn btn-custom">
+              <i class="bi bi-pencil-square icon"></i> Update
             </a>
-            <!-- Delete Button redirects to the delete confirmation page -->
             <a href="{% url 'delete_image' img.id %}" class="btn btn-danger">
-              <i class="bi bi-trash"></i> Delete
+              <i class="bi bi-trash icon"></i> Delete
             </a>
           </div>
         </div>
