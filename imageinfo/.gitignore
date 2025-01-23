@@ -6,3 +6,15 @@ imageapp/migrations/
 
 # Ignore database file
 db.sqlite3
+__pycache__/
+.codegpt
+*.py[cod]
+
+# Virtual Environment
+venv/
+
+
+# Media Uploads
+media/
+
+.env
